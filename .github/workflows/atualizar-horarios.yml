@@ -1,0 +1,31 @@
+name: Atualizar horarios
+
+on:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gerar horarios.json a partir do GTFS da Metro do Porto
+        run: python build_horarios.py --out horarios.json
+      - name: Guardar se mudou
+        run: |
+          if [ -n "$(git status --porcelain horarios.json)" ]; then
+            git config user.name "horarios-bot"
+            git config user.email "horarios-bot@users.noreply.github.com"
+            git add horarios.json
+            git commit -m "Atualiza horarios"
+            git push
+          else
+            echo "Sem alteracoes"
+          fi
