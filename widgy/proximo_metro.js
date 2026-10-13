@@ -4,7 +4,7 @@
 //    A ligação aos blocos de texto do Widgy (ler o resultado e pô-lo nas camadas)
 //    depende da API de scripts do Widgy: adapta apenas a última secção.
 
-const URL = "https://raw.githubusercontent.com/USER/REPO/main/horarios.json";
+const URL = "https://raw.githubusercontent.com/ricardofrod/horariosMetroPorto/main/horarios.json";
 
 function iso(d) {
   return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
